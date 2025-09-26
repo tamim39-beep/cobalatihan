@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate, Link } from "react-router-dom"; // ⬅️ tambahkan ini
 
 const registerSchema = z
   .object({
@@ -39,6 +40,8 @@ const registerSchema = z
   });
 
 export default function Register() {
+  const navigate = useNavigate(); // ⬅️ buat navigate ke halaman lain
+
   const {
     register,
     handleSubmit,
@@ -49,11 +52,15 @@ export default function Register() {
 
   const onSubmit = (data) => {
     console.log("Register data:", data);
+
+    // simulasi sukses register
+    alert("Registrasi berhasil 🎉, silakan login!");
+    navigate("/login"); // ⬅️ redirect ke halaman login
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md  shadow-lg rounded-lg p-6">
+      <div className="w-full max-w-md shadow-lg rounded-lg p-6">
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
           Register
         </h2>
@@ -155,6 +162,13 @@ export default function Register() {
             Register
           </button>
         </form>
+
+        <p className="mt-4 text-center text-gray-600">
+          Sudah punya akun?{" "}
+          <Link to="/login" className="text-blue-600 hover:underline">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );

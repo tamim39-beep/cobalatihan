@@ -1,7 +1,8 @@
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useNavigate, Link } from "react-router-dom"; // ⬅ tambahkan ini
 
 const loginSchema = z.object({
   username: z
@@ -22,6 +23,8 @@ const loginSchema = z.object({
 });
 
 function Coba() {
+  const navigate = useNavigate(); // ⬅ pakai untuk redirect
+
   const {
     register,
     handleSubmit,
@@ -31,14 +34,16 @@ function Coba() {
   });
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log("Login Data:", data);
+    // contoh redirect setelah login
+    navigate("/dashboard");
   };
 
   return (
     <>
       <Navbar />
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md  ">
+        <div className="w-full max-w-md">
           <h1 className="text-2xl font-bold mb-6 text-center">Login </h1>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div>
@@ -84,9 +89,9 @@ function Coba() {
           </form>
           <p className="mt-4 text-center text-gray-600">
             Belum punya akun?{" "}
-            <a href="/register" className="text-blue-600 hover:underline">
+            <Link to="/register" className="text-blue-600 hover:underline">
               Register
-            </a>
+            </Link>
           </p>
         </div>
       </div>
